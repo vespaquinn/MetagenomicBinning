@@ -6,7 +6,7 @@
 #SBATCH --output=/!!WORKDIR!!/errorOut/maxbin2out1.o  # < CHANGE
 #SBATCH --error=/!!WORKDIR!!/errorOut/maxbin2error1.e # < CHANGE
 #SBATCH --mail-type=END,FAIL
-#SBATCH --mail-user=quinn.coxon@students.unibe.ch
+#SBATCH --mail-user=user@unibe.ch                     # < CHANGE
 #-------------------------------------------------------------
 # STEP 3 -  - Maxbin2
 # tools: maxbin2 2.2.4
@@ -14,7 +14,7 @@
 # software source: https://sourceforge.net/projects/maxbin2/
 #-------------------------------------------------------------
 ## !! BIT TO CHANGE !! 
-workdir=/path/to/workdir    # < CHANGE
+workdir=/path/to/workdir                              # < CHANGE
 ##-------------------------------------------------------
 
 # 0 --- setup 
