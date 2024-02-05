@@ -44,14 +44,19 @@ cp ${assemblies_path}/* ${workdir}/data/assemblies
 #--- extract the names of the datasets ---
 
 # Array to store file names without extensions
-datasets_array=()
+file_array=()
 
-# Iterate through .fa.gz files in the directory and add to the array
-for file in ${workdir}/data/raw/*.fa.gz; do
-    # Remove the .fa.gz extension and add to the array
-    datasets_array+=("$(basename "$file" .fa.gz)")
-
+for file in ${datadir}/*R1.fastq.gz; do
+    file_name=$(basename "$file")
+    file_array+=("$file_name")
 done
 
-# Print the contents of the array
+datasets_array=()
+for element in "${file_array[@]}"; do
+    # Use IFS (Internal Field Separator) to split the element based on underscore
+    IFS="_" read -ra parts <<< "$element"
+    # Add the first part (before underscore) to the new array
+    datasets_array+=("${parts[0]}")
+done
+
 printf "%s\n" "${datasets_array[@]}" > ${workdir}/datasets.txt
