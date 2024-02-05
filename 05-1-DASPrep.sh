@@ -16,6 +16,9 @@ workdir=/path/to/workdir                              # < CHANGE
 
 
 #--- 1 --- preparation
+# setup datasets array 
+datasets_array=($(<datasets.txt))
+
 # das tool requires a tsv input which we must generate from the binning directories 
 # the helper script for this can be downloaded here 
 wget -O ${workdir}/scripts/das_tool_helper_script.sh https://raw.githubusercontent.com/cmks/DAS_Tool/master/src/Fasta_to_Contig2Bin.sh 
