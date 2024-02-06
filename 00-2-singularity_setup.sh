@@ -18,7 +18,9 @@ cd ${singularity_dir}
 cd ${workdir}/singularity
 
 #--- 1 - Getting .def files 
-wget -O 
+wget https://raw.githubusercontent.com/vespaquinn/MetagenomicBinning/main/helper_files/das_tool.def
+
+#---  2 - building containers 
 # - i samtools
 singularity build --tmpdir=${tempdir} samtools.sif docker://pegi3s/samtools_bcftools
 
