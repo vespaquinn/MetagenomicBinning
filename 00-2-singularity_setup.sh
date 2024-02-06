@@ -7,30 +7,36 @@
 #SBATCH --error=/PATH/TO/ERROR/FILE
 #--------------------------------------------------------
 # Singularity setup of software 
-# NB. replace paths with the relevant paths for your setup
 #--------------------------------------------------------
-singularity_dir=PATH/TO/SINGULARITY/DIR
-
+## !! BIT TO CHANGE !!
+workdir=/PATH/TO/WORKING/DIRECTORY 
+##-------------------------------------------------------
+#--- 0 - Setup
+singularity_dir=${workdir}/singularity
+tempdir=${workdir}/tempdir
 cd ${singularity_dir}
+cd ${workdir}/singularity
 
-#1 samtools
-singularity build samtools.sif docker://pegi3s/samtools_bcftools
+#--- 1 - Getting .def files 
+wget -O 
+# - i samtools
+singularity build --tmpdir=${tempdir} samtools.sif docker://pegi3s/samtools_bcftools
 
-#2 Bowtie2 
-singularity build bowtie2.sif docker://biocontainers/bowtie2
+#- ii  Bowtie2 
+singularity build --tmpdir=${tempdir} bowtie2.sif docker://biocontainers/bowtie2
 
-#3 Metabat2
-singularity build metabat2.sif docker://nanozoo/metabat2
+#- iii Metabat2
+singularity build --tmpdir=${tempdir} metabat2.sif docker://nanozoo/metabat2
 
-#4 Maxbin2 
-singularity build maxbin2.sif docker://nanozoo/maxbin2
+#- iv Maxbin2 
+singularity build --tmpdir=${tempdir} maxbin2.sif docker://nanozoo/maxbin2
 
-#5 CONCOCT 
-singularity build concoct.sif docker://nanozoo/concoct 
+#- v CONCOCT 
+singularity build --tmpdir=${tempdir} concoct.sif docker://nanozoo/concoct 
 
-#6 DAS_Tool 
+#- vi DAS_Tool 
 
-singularity build das_tool.sif docker://shengwei/das_tool 
+singularity build --tmpdir=${tempdir} das_tool.sif das_tool.def
 
-#7 checkm 
-singularity build checkm.sif docker://nanozoo/checkm
+#- vii checkm 
+singularity build --tmpdir=${tempdir} checkm.sif docker://nanozoo/checkm
