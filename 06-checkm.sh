@@ -120,3 +120,23 @@ singularity exec \
 --bind ${plots_dir} \
 ${checkm_sif} checkm bin_qa_plot --image_type pdf -x fasta ${outdir} ${bins_dir} ${plots_dir}
 done
+
+# 4 --- DASTool
+
+# loop through datasets:
+for dataset in "${datasets_array[@]}"; do
+
+# set variables
+bins_dir="${workdir}/results/05-DASTool/${dataset}_bins/${dataset}_DASTool_DASTool_bins" # Change for other binning outputs
+outdir="${workdir}/results/06-checkM/${dataset}/das_tool" # Change for other binning outputs
+
+mkdir -p ${outdir}
+cd ${outdir}
+
+singularity exec \
+--bind ${outdir} \
+--bind ${bins_dir} \
+--bind ${workdir} \
+--bind ${plots_dir} \
+${checkm_sif} checkm bin_qa_plot --image_type pdf -x fa ${outdir} ${bins_dir} ${plots_dir}
+done
