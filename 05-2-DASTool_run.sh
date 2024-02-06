@@ -18,33 +18,33 @@ workdir=/path/to/workdir                              # < CHANGE
 tmpdir="${workdir}/tempdir"
 dastool_sif="${workdir}/singularity/das_tool.sif"
 datasets_array=($(<datasets.txt))
+tmp_contigs=${tmpdir}/temp_${dataset}_contigs.fa
 
-
-# loop through datasets
+# now loop through each dataset
 for dataset in "${datasets_array[@]}"; do
-    tmp_contigs=${tmpdir}/temp_${dataset}_contigs.fa
-    outdir=${workdir}/results/05-DASTool/${dataset}
-    contigs=${workdir}/data/assemblies/${dataset}.fa.gz
-    bins_metabat="${workdir}/results/02-MetaBAT2/${dataset}_bins/${dataset}.tsv"
-    bins_maxbin="${workdir}/results/03-MaxBin2/${dataset}_bins/${dataset}.tsv"
-    bins_conoct="${workdir}/results/04-CONCOCT/${dataset}_bins/concoct_output/fasta_bins/${dataset}.tsv"
+outdir=${workdir}/results/05-DASTool/${dataset}_bins
+contigs=${workdir}/data/assemblies/${dataset}.fa.gz
+bins_metabat="${workdir}/results/02-MetaBAT2/${dataset}_bins/${dataset}.tsv"
+bins_maxbin="${workdir}/results/03-MaxBin2/${dataset}_bins/${dataset}.tsv"
+bins_conoct="${workdir}/results/04-CONCOCT/${dataset}_bins/concoct_output/fasta_bins/${dataset}.tsv"
 
-    #--- make a temporary contigs file to deal with the compression issue
-    zcat ${contigs} > ${tmp_contigs}
+#--- make a temporary contigs file to deal with the compression issue
+zcat ${contigs} > ${tmp_contigs}
 
-    mkdir -p ${outdir}
-    cd ${outdir}
-    # 2 --- Run DAS_Tool 
-        #NB. it's very sensitive to spaces!
-    singularity exec \
-    --bind ${workdir} \
-    --bind ${outdir} \
-    ${dastool_sif} DAS_Tool -i ${bins_metabat},${bins_maxbin},${bins_conoct} \
-    -l metabat2,maxbin2,concoct \
-    -c ${tmp_contigs} \
-    -o ${dataset}_DASTool \
-    --threads 16 
+mkdir -p ${outdir}
+cd ${outdir}
+# 2 --- Run DAS_Tool
+    #NB. it's very sensitive to spaces!
+singularity exec \
+--bind ${workdir} \
+--bind ${outdir} \
+${dastool_sif} DAS_Tool -i ${bins_metabat},${bins_maxbin},${bins_conoct} \
+-l metabat2,maxbin2,concoct \
+-c ${tmp_contigs} \
+-o ${dataset}_DASTool \
+--write_bins \
+--threads 16
 
-    # remove the temporart contigs file
-    rm ${tmp_contigs}
+# remove the temporary contigs file
+rm ${tmp_contigs}
 done
