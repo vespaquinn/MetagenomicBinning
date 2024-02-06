@@ -127,7 +127,7 @@ done
 for dataset in "${datasets_array[@]}"; do
 
 # set variables
-bins_dir="${workdir}/results/05-DASTool/${dataset}_bins/${dataset}_DASTool_DASTool_bins" # Change for other binning outputs
+bins_dir="${workdir}/results/05-DASTool/${dataset}/${dataset}_DASTool_DASTool_bins" # Change for other binning outputs
 outdir="${workdir}/results/06-checkM/${dataset}/das_tool" # Change for other binning outputs
 
 mkdir -p ${outdir}
