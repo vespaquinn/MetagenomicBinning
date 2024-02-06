@@ -1,0 +1,66 @@
+# Singularity.def
+
+Bootstrap: docker
+From: ubuntu:20.04
+
+%labels
+    container.base.image ubuntu:20.04
+    software.name DAS_Tool
+    software.description "DAS Tool is an automated method that integrates the results of a flexible number of binning algorithms to calculate an optimized, non-redundant set of bins from a single assembly."
+    software.website https://github.com/cmks/DAS_Tool
+    software.license BSD
+    software.citation "Sieber et al., 2018, Nature Microbiology (https://doi.org/10.1038/s41564-018-0171-1)"
+
+%environment
+    export DEBIAN_FRONTEND="noninteractive"
+
+%post
+    apt-get update && \
+    apt-get install -yq \
+        autoconf \
+        automake \
+        cmake \
+        git \
+        libpcre3 \
+        libpcre3-dev \
+        libgsl0-dev \
+        libgomp1 \
+        lzma \
+        ncbi-blast+ \
+        r-base \
+        ruby-full \
+        wget && \
+    cd /tmp && \
+    wget https://github.com/hyattpd/Prodigal/releases/download/v2.6.3/prodigal.linux && \
+    mv prodigal.linux /bin/prodigal && \
+    chmod +x /bin/prodigal && \
+    git clone https://github.com/bcthomas/pullseq.git && \
+    cd pullseq && \
+    ./bootstrap && \
+    ./configure --prefix=/ && \
+    make && \
+    make install && \
+    cd /tmp && \
+    wget https://github.com/bbuchfink/diamond/releases/download/v2.0.14/diamond-linux64.tar.gz && \
+    tar xfvz diamond-linux64.tar.gz && \
+    mv diamond /bin/diamond && \
+    chmod +x /bin/diamond && \
+          wget https://www.drive5.com/downloads/usearch11.0.667_i86linux32.gz && \
+    gunzip usearch11.0.667_i86linux32.gz && \
+    mv usearch11.0.667_i86linux32 /bin/usearch && \
+    mkdir -p /opt/DAS_Tool && \
+    cd /opt/DAS_Tool && \
+    wget https://github.com/cmks/DAS_Tool/archive/refs/tags/v1.1.0.zip && \
+    unzip v1.1.0.zip && \
+    mv DAS_Tool-1.1.0 DAS_Tool && \
+    rm v1.1.0.zip && \
+    cd /opt/DAS_Tool && \
+    wget https://github.com/cmks/DAS_Tool/releases/download/v1.1.0/db.zip && \
+    unzip -o db.zip -d db && \
+    R -e "install.packages(c('data.table','magrittr','docopt'), repos='http://cran.us.r-project.org')" && \
+    rm db.zip && \
+    chmod +x DAS_Tool && \
+    ln -s /opt/DAS_Tool/DAS_Tool /bin/DAS_Tool
+
+%runscript
+    exec /bin/DAS_Tool "$@"
