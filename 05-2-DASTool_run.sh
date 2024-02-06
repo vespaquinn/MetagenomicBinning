@@ -22,7 +22,7 @@ tmp_contigs=${tmpdir}/temp_${dataset}_contigs.fa
 
 # now loop through each dataset
 for dataset in "${datasets_array[@]}"; do
-outdir=${workdir}/results/05-DASTool/${dataset}_bins
+outdir=${workdir}/results/05-DASTool/${dataset}
 contigs=${workdir}/data/assemblies/${dataset}.fa.gz
 bins_metabat="${workdir}/results/02-MetaBAT2/${dataset}_bins/${dataset}.tsv"
 bins_maxbin="${workdir}/results/03-MaxBin2/${dataset}_bins/${dataset}.tsv"
