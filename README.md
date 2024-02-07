@@ -12,12 +12,10 @@ The scripts are made to work specifically with the data available from the RAS s
 ## Structure 
 The scripts follow a specific structure setup in step1. All scripts are designed to need minimal user input, in each script at the beginning there is a `## !! BIT TO CHANGE !!##` section. Provided the file structure follows that setup in stage 0, changing just the variables covered here will be enough. For example 
 ```
-{
 #--------------------------------------------------------
 ## !! BIT TO CHANGE !!
 workdir=/PATH/TO/WORKING/DIRECTORY 
 ##-------------------------------------------------------
-}
 ```
 ## 0. Setup 
 ### File structure
