@@ -19,16 +19,14 @@ workdir=/PATH/TO/WORKING/DIRECTORY
 ```
 ## 0. Setup 
 ### File structure
-Firstly set up the file structure you want to use for the project, this can be done manually but it is recomended to use the 00-1-setup.sh script. It's important to follow this structure as many of the scripts rely on it, however, symbolic links can be used in most places (for example - to the data), if space saving is a priority. 
+Firstly, set up the file structure you want to use for the project, this can be done manually but it is recomended to use the 00-1-setup.sh script. It's important to follow this structure as many of the scripts rely on it, however, symbolic links can be used in most places (for example - to the data), if space saving is a priority. 
 
 This script also extracts the names of the accessions you're working with and stores them in the text file `datasets.txt`. If you want to work with just specific datasets, this file can be edited manually. 
 
 ### 0.2 Software installation 
 The 7 tools used in the scripts are containerised to prevent combatability and versioning issues. The `00-2-singularity_setup.sh` script downloads stable versions of these containers from docker, except for DAS_Tool which is built from scratch using the das_tool.def file (itself downloaded during the running of the script). More tools can be added from docker using the syntax:
 ```
-{
     singularity build --tmpdir=/workdir/tempdir {TOOL_NAME}.sif docker://PATH/TO/TOOL
-}
 ```
 For metagenomics binning tools, [dockerhub nanozoo](https://hub.docker.com/u/nanozoo) is a verified repository containing many relevant tools. 
 
