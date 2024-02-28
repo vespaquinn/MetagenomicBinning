@@ -1,3 +1,7 @@
+# Context of this workflow 
+This workflow was created in 2023 by Quinn Coxon as a semester project as part of the Masters Programme "Bioinformatics and Computational Biology" joint between the universities of Fribourg and Bern, Switzerland. It was produced under the supervision of Prof. Dr. Irene Adrian-Kalchhauser and Prof. Dr. Claudia Bank, in order to analyse the metagenomic data produced by a large scale study on microbial diversity in recirculating aquaculture systems (RAS) in switzerland. More information about the data this workflow was designed for can be found [here](https://doi.org/10.1186/s40793-023-00459-z). 
+If you have any questions or run into any issues with the workflow, I can be contacted at: quinn.coxon@unifr.ch.
+
 # Metagenomic Binning with DASTool
 
 DAS Tool is an automated method that integrates the results of a flexible number of binning algorithms to calculate an optimized, non-redundant set of bins from a single assembly. More information on DASTool can be found here https://github.com/cmks/DAS_Tool.
