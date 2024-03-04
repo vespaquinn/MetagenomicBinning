@@ -202,3 +202,28 @@ For each dataset, the results are organized into dedicated directories within th
 ### Important Note
 Ensure to specify the temporary directory (`--tmpdir`) with sufficient space and memory allocation for CheckM operations, as default locations may not provide adequate resources.
 
+### Results 
+#### Quality Assessment
+In the directory [workdir]/results/06-checkM you will find a directory for each dataset you’ve studied. In each directory will be a subdirectory for each binning tool used on that dataset. Under normal usage this should be 4 directories: concoct, das_tool, maxbin2, and metabat2. If you have chosen to include more binning tools, these will appear here as well. Within each directory are a further 3 subdirectories, “plots”, “bins”, and “storage”, as well as a file named lineage.ms. 
+Plots showing the quality of the bins can be found in the directory {workdir}/results/06-checkM/{dataset}/{binning_tool}/plots e.g., the quality plots for the DASTool bins of dataset 001 can be found in the directory {workdir}/results/06-checkM/001/das_tool/plots. Running the workflow with default settings this will produce one quality assessment plot for each dataset and binning tool, in pdf format. Here is an example from running the workflow on dataset 467 from the FarmE data:
+ ![CheckM Plots for FarmE set 467](main/results/467_test_results.png)
+
+These are four separate bin_qa plots, which provide a visual representation of the completeness, contamination, and strain heterogeneity within each genome bin. Bars in green represent markers identified exactly once, while bars in grey represent missing markers. Markers identified multiple times in a genome bin are represented by shades of blue or red depending on the amino acid identity (AAI) between pairs of multi-copy genes and the total number of copies present (2-5+). Pairs of multi-copy genes with an AAI ≥90% are indicated with shades of blue, while genes with less amino acid similarity are shown in red. A gene present 3 or more times may have pairs with an AAI ≥90% and pairs with an AAI < 90%. From the results of this test trial, we can see that DAS_Tool performs the best, as expected, but that MetaBAT2 does also perform much better than the other two tools. 
+
+#### Per-Bin CheckM results
+For each bin to be analysed, checkm first produces 4 files for that bin, which can be found in the directory {workdir}/results/06-checkM/{dataset}/{tool}/bins/{bin_number}. These are used by CheckM to assess the quality of the bins, and can be ignored. However, for reference, the files are:
+-	genes.faa: contains the predicted genes sequences identified in the bin using prodigal, in FASTA format. 
+-	genes.gff: contains the genomic coordinates and annotations of these genes in General Feature Format (GFF). 
+-	hmmer.analyse.txt: contains the results of running HMMER analysis on the predicted genes. It includes information about the presence of specific protein domains or motifs in the predicted proteins, along with statistical scores and other relevant data.
+-	hmmer.tree.txt: contains the output of a phylogenetic tree constructed based on the results of the HMMER analysis. It tries to represent the evolutionary relationships between the predicted proteins and their homologs in known protein families or taxa.
+There are more reliable tools for gene prediction than those used by CheckM, so if you are interested in looking at predicted genes, it would be worth conducting this work separately, as the results you will find here are only meant to be used to guide CheckM in quality assessment. Machine-learning-based tools like geneRFinder (Silva et al, 2021) perform much better on metagenomic datasets than the older tools implemented by CheckM such as prodigal, so I would recommend looking at these as your first step in investigating gene predictions on a bin-by-bin basis. 
+Overall CheckM Results (‘storage’)
+In the directory {workdir}/results/06-checkM/{dataset}/{tool}/storage you will find the raw results of CheckM, used to produce the quality plots. The formatting of these files makes them quite difficult to work with, so I would recommend just using the plotting functions of CheckM to see the results, rather than using these files, the official documentation does not go into much detail about these files either, so I would recommend sticking to the plots for information on bin quality. 
+#### Bins
+The most important results are the bins themselves. So long as the quality assessment with CheckM is satisfactory, all downstream analysis can be done using the fasta files generated for each bin. For the each tool the path to the bins is slightly different:
+-	DASTool: {workdir}/results/05-DASTool/{dataset}_bins/{dataset}_DASTool_DASTool_bins
+-	CONCOCT: {workdir}/results/04-CONCOCT/{dataset}_bins/concoct_output/fasta_bins 
+-	MaxBin2: : {workdir}/results/03-MaxBin2/{dataset}_bins 
+-	MetaBAT2: {workdir}/results/02-MetaBAT2/{dataset}_bins
+
+
