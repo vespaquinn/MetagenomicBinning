@@ -196,13 +196,10 @@ CheckM is utilized in this section to assess the quality and completeness of the
 - Assesses bin quality and completeness using CheckM lineage_wf.
 - Produces quality assessment plots for comprehensive evaluation.
 
-## Output
-For each dataset, the results are organized into dedicated directories within the CheckM output directory (`${workdir}/results/06-checkM/${dataset}`). The directories contain quality assessment plots and summary files providing detailed information on bin quality and completeness.
-
 ### Important Note
 Ensure to specify the temporary directory (`--tmpdir`) with sufficient space and memory allocation for CheckM operations, as default locations may not provide adequate resources.
 
-### Results 
+## Results 
 #### Quality Assessment
 In the directory [workdir]/results/06-checkM you will find a directory for each dataset you’ve studied. In each directory will be a subdirectory for each binning tool used on that dataset. Under normal usage this should be 4 directories: concoct, das_tool, maxbin2, and metabat2. If you have chosen to include more binning tools, these will appear here as well. Within each directory are a further 3 subdirectories, “plots”, “bins”, and “storage”, as well as a file named lineage.ms. 
 Plots showing the quality of the bins can be found in the directory {workdir}/results/06-checkM/{dataset}/{binning_tool}/plots e.g., the quality plots for the DASTool bins of dataset 001 can be found in the directory {workdir}/results/06-checkM/001/das_tool/plots. Running the workflow with default settings this will produce one quality assessment plot for each dataset and binning tool, in pdf format. Here is an example from running the workflow on dataset 467 from the FarmE data:
