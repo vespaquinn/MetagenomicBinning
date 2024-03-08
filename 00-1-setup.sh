@@ -46,7 +46,7 @@ cp ${assemblies_path}/* ${workdir}/data/assemblies
 # Array to store file names without extensions
 file_array=()
 
-for file in ${datadir}/*R1.fastq.gz; do
+for file in ${workdir}/data/raw/*R1.fastq.gz; do
     file_name=$(basename "$file")
     file_array+=("$file_name")
 done
